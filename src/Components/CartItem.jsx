@@ -4,6 +4,16 @@ import { useDispatch } from "react-redux";
 import { decrement, increment, remove } from "../redux/features/Cart/cartSlice";
 const CartItem = ({ id, img, title, price, amount }) => {
   const dispatch = useDispatch();
+  if (amount < 1) {
+    return (
+      <section className="cart">
+        <header>
+          <h2>Your bag</h2>
+          <h4 className="empty-cart">is currently empty</h4>
+        </header>
+      </section>
+    )
+  }
   return (
     <article className="cart-item">
       <img src={img} alt="" />
