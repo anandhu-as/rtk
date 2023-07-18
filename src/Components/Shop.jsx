@@ -1,25 +1,35 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
+import { clearCart } from "../redux/features/Cart/cartSlice";
 
 const Shop = () => {
   const { total, amount, cartItems } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-  return (<section className="cart">
-    <header>
+  return (
+    <section className="cart">
+      <header>
         <h2>your bag</h2>
-    </header>
-    <div>{cartItems.map((item)=>{
-        return <CartItem key={item.id} {...item}/>
-    })}</div>
-    <footer className="">
+      </header>
+      <div>
+        {cartItems.map((item) => {
+          return <CartItem key={item.id} {...item} />;
+        })}
+      </div>
+      <footer className="">
         <hr />
         <div className="cart-total">
-        <h4>total <span>${total}</span></h4>
+          <h4>
+            total <span>${total}</span>
+          </h4>
         </div>
-        <button className="btn clear-btn">clear cart</button>
-    </footer>
-  </section>
-)}
+        <button className="btn clear-btn" onClick={() => dispatch(clearCart())}>
+          clear cart
+        </button>
+      </footer>
+    </section>
+  );
+};
 
 export default Shop;
